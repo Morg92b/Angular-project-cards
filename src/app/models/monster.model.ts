@@ -1,5 +1,9 @@
+import { MonsterType } from "../utils/monster.utils";
+
 export class Monster {
     name: string = "My Monster";
+    image: string = "img-cards/c3po.png";
+    type: MonsterType = MonsterType.JEDI;
     hp: number = 40;
     figureCaption: string = "N°001";
     attackName: string = "Cyber Force Pulse";
