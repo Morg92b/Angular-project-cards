@@ -1,13 +1,14 @@
-import { Component, computed, effect, signal } from '@angular/core';
+import { Component, computed, effect, model, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { PlayingCard } from './components/playing-card/playing-card';
 import { Monster } from './models/monster.model';
 import { SearchBar } from './components/search-bar/search-bar';
 import { MonsterType } from './utils/monster.utils';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [PlayingCard, SearchBar],
+  imports: [PlayingCard, SearchBar, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -15,24 +16,19 @@ export class App {
   protected readonly title = signal('playing-cards');
 
   monsters!: Monster[];
-  count: number = 0;
-  search = '';
+  search = model('');
 
-  selectedMonsterIndex = signal(1);
-  selectedMonster = computed(() => {
-    return this.monsters[this.selectedMonsterIndex()];
-  })
+  filteredMonsters = computed(() => {
+    return this.monsters.filter(monster => monster.name.includes(this.search()));
+  });
 
   constructor() {
 
-    effect(() => {
-      console.log(this.selectedMonster());
-    })
     this.monsters = [];
 
 
     const monster1 = new Monster();
-    monster1.name = "C3PO";
+    monster1.name = "Master-C3PO";
     monster1.image = "img-cards/c3po.png";
     monster1.type = MonsterType.JEDI;
     monster1.hp = 40;
@@ -63,13 +59,28 @@ export class App {
     monster3.attackStrength = 110;
     monster3.attackDescription = "Dembe-Solo strikes with the power of the shadows.";
     this.monsters.push(monster3);
+
+    const monster4 = new Monster();
+    monster4.name = "R2-D2";
+    monster4.image = "img-cards/R2-D2.webp";
+    monster4.type = MonsterType.CYBORG;
+    monster4.hp = 80;
+    monster4.figureCaption = "N°001 Cyborg";
+    monster4.attackName = "Shockwave Blast";
+    monster4.attackStrength = 70;
+    monster4.attackDescription = "R2-D2 unleashes a powerful shockwave blast.";
+    this.monsters.push(monster4);
+
+    const monster5 = new Monster();
+    monster5.name = "Dark-Maul";
+    monster5.image = "img-cards/Dark-Maul.jpg";
+    monster5.type = MonsterType.EMPIRE;
+    monster5.hp = 50;
+    monster5.figureCaption = "N°002 Empire";
+    monster5.attackName = "Sith Slash";
+    monster5.attackStrength = 75;
+    monster5.attackDescription = "Dark-Maul strikes with the power of the dark side.";
+    this.monsters.push(monster5);
   }
 
-  increaseCount() {
-    this.count++
-  }
-  toggleMonster() {
-    this.selectedMonsterIndex.set((this.selectedMonsterIndex() + 1) % this.monsters.length);
-
-  }
 }
