@@ -22,7 +22,7 @@ export class MonsterService {
     const monsterData = localStorage.getItem('monsters');
     if (monsterData) {
       this.monsters = JSON.parse(monsterData).map((monsterJSON: any) => Object.assign(new Monster(), monsterJSON));
-      this.currentIndex = Math.max(...this.monsters.map(monster => monster.id));
+      this.currentIndex = this.monsters.length ? Math.max(...this.monsters.map(monster => monster.id)) + 1 : 1;
     } else {
       this.init();
       this.save();

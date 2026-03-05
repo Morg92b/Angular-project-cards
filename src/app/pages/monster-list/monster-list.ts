@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, computed, inject, model, signal } from '@angular/core';
 import { Monster } from '../../models/monster.model';
 import { SearchBar } from '../../components/search-bar/search-bar';
@@ -14,9 +15,10 @@ import { MonsterService } from '../../services/monster/monster';
 export class MonsterList {
   protected readonly title = signal('playing-cards');
 
-  MonsterService = inject(MonsterService);
+  private MonsterService = inject(MonsterService);
   monsters = signal<Monster[]>([]);
   search = model('');
+  private router = inject(Router);
 
   filteredMonsters = computed(() => {
     return this.monsters().filter(monster => monster.name.includes(this.search()));
@@ -27,9 +29,11 @@ export class MonsterList {
   }
 
   addMonster() {
-    const genericMonster = new Monster();
-    this.MonsterService.add(genericMonster);
-    this.monsters.set(this.MonsterService.getAll());
+    this.router.navigate(['/monster']);
+  }
+
+  openMonster(monster: Monster) {
+    this.router.navigate(['/monster', monster.id]);
   }
 
 
