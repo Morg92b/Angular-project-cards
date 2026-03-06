@@ -14,7 +14,7 @@ export const routes: Routes = [
         path: 'home',
         component: MonsterList
     },{
-        path: 'Login',
+        path: 'login',
         component: Login
     },{
         path: 'monster',
