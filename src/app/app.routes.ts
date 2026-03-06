@@ -4,6 +4,7 @@ import { MonsterList } from './pages/monster-list/monster-list';
 import { MonsterComponent } from './pages/monster/monster';
 import { NotFound } from './pages/not-found/not-found';
 import { Login } from './pages/login/login';
+import { isLoggedInGuard } from './guards/is-logged-in-guard';
 
 export const routes: Routes = [
     {
@@ -12,7 +13,8 @@ export const routes: Routes = [
         pathMatch: 'full'
     },{
         path: 'home',
-        component: MonsterList
+        component: MonsterList,
+        canActivate: [isLoggedInGuard]
     },{
         path: 'login',
         component: Login
@@ -21,10 +23,12 @@ export const routes: Routes = [
         children: [{
                 path: '',
                 component: MonsterComponent,
+                canActivate: [isLoggedInGuard]
             },
             {
                 path: ":monster",
                 component: MonsterComponent,
+                canActivate: [isLoggedInGuard]
             }
         ]
     },{

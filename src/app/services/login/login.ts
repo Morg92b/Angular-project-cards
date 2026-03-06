@@ -39,9 +39,7 @@ export class LoginService {
         const user = Object.assign(new User(), result);
         this.user.set(user);
       }),
-      map((result: any) => {
-        return this.user();
-      })
+      map(() => this.user())
     );
   }
 
