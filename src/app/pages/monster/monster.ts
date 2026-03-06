@@ -6,12 +6,15 @@ import { Subscription } from 'rxjs';
 import { MonsterType } from '../../utils/monster.utils';
 import { PlayingCard } from "../../components/playing-card/playing-card";
 import { Monster } from '../../models/monster.model';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @Component({
   selector: 'app-monster',
   standalone: true,
-  imports: [ReactiveFormsModule, PlayingCard],
+  imports: [ReactiveFormsModule, PlayingCard, MatButtonModule, MatInputModule, MatSelectModule,],
   templateUrl: './monster.html',
   styleUrl: './monster.css',
 })
@@ -74,6 +77,10 @@ export class MonsterComponent implements OnInit, OnDestroy{
   isFieldValid(fieldname: string) {
     const formControl = this.formGroup.get(fieldname);
     return formControl?.invalid && (formControl?.dirty || formControl?.touched);
+  }
+
+  deleteMonster() {
+    
   }
 
   onFileChange(event: any) {
