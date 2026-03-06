@@ -9,6 +9,8 @@ import { Monster } from '../../models/monster.model';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteMonsterConfirmationDialog } from '../../components/delete-monster-confirmation-dialog/delete-monster-confirmation-dialog';
 
 
 @Component({
@@ -26,6 +28,7 @@ export class MonsterComponent implements OnInit, OnDestroy{
   private MonsterService = inject(MonsterService);
   private routeSubscription: Subscription | null = null;
   private formValuesSubscription: Subscription | null = null;
+  private readonly dialog = inject(MatDialog);
 
   formGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
@@ -80,8 +83,15 @@ export class MonsterComponent implements OnInit, OnDestroy{
   }
 
   deleteMonster() {
+    const dialogRef = this.dialog.open(DeleteMonsterConfirmationDialog);
+    dialogRef.afterClosed().subscribe(confirmation => {
+      if (confirmation) {
+        this.MonsterService.delete(this.monsterId);
+        this.navigateBack();
+      }
     
-  }
+  })
+}
 
   onFileChange(event: any) {
     const reader = new FileReader();
