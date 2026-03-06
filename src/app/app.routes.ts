@@ -3,21 +3,22 @@ import { Routes } from '@angular/router';
 import { MonsterList } from './pages/monster-list/monster-list';
 import { MonsterComponent } from './pages/monster/monster';
 import { NotFound } from './pages/not-found/not-found';
+import { Login } from './pages/login/login';
 
 export const routes: Routes = [
     {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full'
-    },
-    {
+    },{
         path: 'home',
         component: MonsterList
-    },
-    {
+    },{
+        path: 'Login',
+        component: Login
+    },{
         path: 'monster',
-        children: [
-            {
+        children: [{
                 path: '',
                 component: MonsterComponent,
             },
@@ -26,8 +27,7 @@ export const routes: Routes = [
                 component: MonsterComponent,
             }
         ]
-    },
-    {
+    },{
         path: '**',
         component: NotFound
     }
