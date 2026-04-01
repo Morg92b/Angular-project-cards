@@ -7,10 +7,34 @@
 }
 
 .centered {
-    margin-top: 40px;
+    margin-top: 30px;
     text-align: center;
 }
 
 app-playing-card {
     cursor: pointer;
+}
+
+.page-wrapper {
+    position: relative;
+}
+
+.add-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #2196F3;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    margin-top: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.add-button:hover {
+    background-color: #1976D2;
 }
